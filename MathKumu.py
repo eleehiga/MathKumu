@@ -1,3 +1,4 @@
+# only supports addition for now
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
@@ -17,7 +18,8 @@ image = cv2.imread('testequations/testequation6.png')
 
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 _, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-
+#kernel = np.ones((5, 5), np.uint8) * 100
+#img_dilated = cv2.dilate(thresh, kernel, iterations = 1)
 cnts, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 
@@ -70,7 +72,6 @@ pred_images = list()
 
 for img_data in imgs_final: 
     img_data = cv2.resize(img_data, dsize=(45,45),interpolation=cv2.INTER_CUBIC)
-    #print(img_data.shape)
     pred_images.append(img_data)
 
 pred_images = tf.keras.utils.normalize(pred_images, axis=1)
@@ -81,55 +82,53 @@ probability_labels = model.predict(pred_images)
 labels = list()
 for i in range(0, len(pred_images)):
     labels.append(class_labels[np.argmax(probability_labels[i])])
-    print(labels[i])
-    plt.imshow(tf.squeeze(pred_images[i]))
-    plt.show()
 # put information of character's center coordinates and its label into an array
 characters = []
 for i in range(len(pred_images)):
-    characters.append([0] * 2)
+    characters.append([0] * 4)
 
 symbols_num = 0
 symbols = list()
 for i in range(len(pred_images)):
     characters[i].append(labels[i])
-    characters[i][0] = int(rects[i][0] + rects[i][2] / 2)
-    characters[i][1] = int(rects[i][1] + rects[i][3] / 2)
-    if characters[i][2] in ['plus', 'times', '-']:
+    characters[i][0] = int(rects[i][0])
+    characters[i][1] = int(rects[i][1])
+    characters[i][2] = int(rects[i][2])
+    characters[i][3] = int(rects[i][3])
+    if characters[i][4] in ['plus', 'times', '-']:
         symbols_num += 1
         symbols.append(characters[i])
 def getYFromChar(item):
     return item[1]
 symbols.sort(key = getYFromChar)
-print(symbols)
 operators = list()
 operators.append(symbols[0])
 lines  = list()
 lines.append(symbols[1])
-print(lines)
-print(operators)
-# with big character list, organize into layers
-y_thresh = 20
-x_thresh = 30
+# see if intervals line up with each other
 row = np.zeros(len(characters), dtype=int)
 col = np.zeros(len(characters), dtype=int)
 def getYFromChar(item):
     return item[1]
 characters.sort(reverse = True, key = getYFromChar)
+interval_x = lambda j : [int(characters[j][0] + characters[j][2] * 0.1), int(characters[j][0] + characters[j][2] * 0.9)]
+interval_y = lambda j : [int(characters[j][1]  + characters[j][3] * 0.1), int(characters[j][1] + characters[j][3] * 0.9)]
+
+
 #compare next char to first, layer higher the layer number the more up it is
 for i in range(0,len(characters)-1):
-    if np.absolute(characters[i + 1][1] - characters[i][1]) < y_thresh:
+    if not(interval_y(i + 1)[1] < interval_y(i)[0] or interval_y(i + 1)[0] > interval_y(i)[1]):
         row[i + 1] = row[i]
-    elif characters[i + 1][1] - characters[i][1] <= y_thresh:
+    else:
         row[i + 1] = row[i] + 1
 def getXFromChar(item):
     return item[0]
 characters.sort(reverse = False, key = getXFromChar)
 characters.remove(lines[0])
 for i in range(len(characters)-1):
-    if np.absolute(characters[i + 1][0] - characters[i][0]) < x_thresh:
+    if not(interval_x(i + 1)[1] < interval_x(i)[0] or interval_x(i + 1)[0] > interval_x(i)[1]):
         col[i + 1] = col[i]
-    elif characters[i + 1][0] - characters[i][0] >= x_thresh:
+    else:
         col[i + 1] = col[i] + 1
 characters.append(lines[0])
 # do not care about line column values
@@ -140,44 +139,51 @@ for c in col:
 i = 0
 characters.sort(reverse = True, key = getYFromChar)
 for r in row:
-    characters[i].insert(3, r)
-    if characters[i][0:3] == lines[0]:
+    characters[i].insert(5, r)
+    if characters[i][0:5] == lines[0]:
         lines[0] = characters[i]
-    elif characters[i][2] in ['plus', '-', 'times']:
+    elif characters[i][4] in ['plus', '-', 'times']:
         operators[0] = characters[i]
     i += 1
 def getColFromChar(item):
-    return item[4]
+    return item[6]
 def getRowFromChar(item):
-    return item[3]
-max_row = row[len(characters)-1]
-max_col = col[len(characters)-1-len(lines)] # not care about last one because that is the position of the lines
+    return item[5]
+max_row = row[len(row)-1]
+max_col = col[len(col)-1-len(lines)] # not care about last one because that is the position of the lines
+
+work = []
+for i in range(max_row + 1):
+    work.append([' '] * (max_col + 1))
+for character in characters:
+    work[character[5]][character[6]] = character[4]
+    if character[4] == 'plus':
+        work[character[5]][character[6]] = '+'
+for i in range(len(work) - 1, -1, -1):
+    print(work[i])
+
 #If addition
-if operators[0][2] == 'plus':
+if operators[0][4] == 'plus':
     # check if rightmost numbers added up are equalling what they are supposed to
     characters.sort(reverse = True, key = getRowFromChar)
     characters.sort(reverse = True, key = getColFromChar)
-    print(characters)
     c_num = max_col
     sum_col = 0
     prev_sum = 0
     have_nums_to_use = False
     for character in characters:
-        if character[4] == c_num and not(character[2] in ['plus', '-', 'times']) and character[3] > lines[0][3]:
-            sum_col += int(character[2])
-            #print(sum_col)
+        if character[6] == c_num and not(character[4] in ['plus', '-', 'times']) and character[5] > lines[0][5]:
+            sum_col += int(character[4])
             have_nums_to_use = True
-        elif character[4] == c_num and not(character[2] in ['plus', '-', 'times']) and character[3] < lines[0][3]:
-            sum_check = int(character[2])
-            #print(sum_check)
+        elif character[6] == c_num and not(character[4] in ['plus', '-', 'times']) and character[5] < lines[0][5]:
+            sum_check = int(character[4])
             if sum_col % 10 != sum_check and have_nums_to_use:
-                print('Error when adding in column ' + str(c_num))
+                print('Error when adding in column ' + str(c_num + 1))
             have_nums_to_use = False
             prev_sum = sum_col
             sum_col = 0
-        elif not(character[2] in ['plus', '-', 'times']):
-            c_num = character[4]
-            #print(c_num)
-            if character[3] < lines[0][3] and sum_col == 0 and int(prev_sum / 10) != int(character[2]):
+        elif not(character[4] in ['plus', '-', 'times']):
+            c_num = character[6]
+            if character[5] < lines[0][5] and sum_col == 0 and int(prev_sum / 10) != int(character[4]):
                 print('Error in leftmost column')
-            sum_col += int(character[2])
+            sum_col += int(character[4])
