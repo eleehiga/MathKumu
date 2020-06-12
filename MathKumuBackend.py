@@ -1,4 +1,5 @@
 from flask import Flask
+import flask
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
@@ -15,14 +16,16 @@ import os
 app = Flask(__name__)
 
 # variables
-first_number = np.random.randint(10, 100)
-second_number = np.random.randint(10, 100)
+first_number = 0
+second_number = 0
 
 # creates random addition equations with two numbers for now
 @app.route("/equation", methods=['GET'])
 def create_equation():
+    first_number = np.random.randint(10, 100)
+    second_number = np.random.randint(10, 100)
     try: 
-        return jsonify(str(first_number) + " + " + str(second_number)), 201
+        return flask.jsonify(str(first_number) + " + " + str(second_number) + " ="), 201
     except:
         return "", 500
 
@@ -34,6 +37,13 @@ def create_equation():
 @app.route("/analyzer", methods=['POST'])
 def analyze():
     try:
+        image = cv2.imread(flask.request.files.get('image'))
+        print(flask.request.files.get('image'))
+        plt.imshow(image)
+        plt.show()
         return "", 201
     except:
         return "", 500
+
+if __name__ == '__main__':
+    app.run()
