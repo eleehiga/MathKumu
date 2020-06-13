@@ -37,11 +37,11 @@ def create_equation():
 @app.route("/analyzer", methods=['POST'])
 def analyze():
     try:
-        image = cv2.imread(flask.request.files.get('image'))
-        print(flask.request.files.get('image'))
-        plt.imshow(image)
-        plt.show()
-        return "", 201
+        image_data = flask.request.get_data()
+        image = np.frombuffer(image_data, dtype=np.uint8) 
+        #plt.imshow(image)
+        #plt.show()
+        return str(image_data), 201
     except:
         return "", 500
 
