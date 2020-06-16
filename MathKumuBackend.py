@@ -38,10 +38,11 @@ def create_equation():
 def analyze():
     try:
         image_data = flask.request.get_data()
-        image = np.frombuffer(image_data, dtype=np.uint8) 
-        #plt.imshow(image)
-        #plt.show()
-        return str(image_data), 201
+        image_vector = np.frombuffer(image_data, dtype=np.uint8) 
+        image = cv2.imdecode(image_vector, cv2.IMREAD_COLOR)
+        plt.imshow(image)
+        plt.show()
+        return str(image.shape), 201
     except:
         return "", 500
 
