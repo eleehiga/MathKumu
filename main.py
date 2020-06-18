@@ -3,15 +3,7 @@ import flask
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-from PIL import Image
-from os import listdir
-from matplotlib import image
-from matplotlib import pyplot
 import tensorflow as tf
-import winsound
-import cv2
-import numpy as np
-import os
 
 app = Flask(__name__)
 
@@ -19,11 +11,10 @@ app = Flask(__name__)
 first_number = 0
 second_number = 0
 
-'''
 @app.route('/')
 def index():
-        return flask.render_template("index.html")
-'''
+        #return flask.render_template("index.html")
+        return 'Aloha Math Kumu!'
 
 # creates random addition equations with two numbers for now
 @app.route("/equation", methods=['GET'])
@@ -61,8 +52,8 @@ def analyze():
         image_data = flask.request.get_data()
         image_vector = np.frombuffer(image_data, dtype=np.uint8) 
         image = cv2.imdecode(image_vector, cv2.IMREAD_COLOR)
-        plt.imshow(image)
-        plt.show()
+        #plt.imshow(image)
+        #plt.show()
         # here is the logic part of the code
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         _, thresh = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
@@ -194,9 +185,6 @@ def analyze():
             if character[4] == 'plus':
                 work[character[5]][character[6]] = '+'
         work = work[::-1] # reverses array
-        #for i in range(len(work)):
-        #    print(work[i])
-
         # checks if you did work correctly
         #If addition
         if operators[0][4] == 'plus':
@@ -215,7 +203,6 @@ def analyze():
                 elif character[6] == c_num and not(character[4] in ['plus', '-', 'times']) and character[5] < lines[0][5]:
                     sum_check = int(character[4])
                     if sum_col % 10 != sum_check and have_nums_to_use:
-                        #print('Error when adding in column ' + str(c_num))
                         message = "Error when adding in column " + str(c_num)
                         correct = False
                     have_nums_to_use = False
@@ -224,17 +211,17 @@ def analyze():
                 elif not(character[4] in ['plus', '-', 'times']):
                     c_num = character[6]
                     if character[5] < lines[0][5] and sum_col == 0 and int(prev_sum / 10) != int(character[4]):
-                        #print('Error in leftmost column')
                         message = "Error in leftmost column"
                         correct = False
                     sum_col += int(character[4])
         if correct:
-            #print('Your work looks correct to me')
             message = "Your work looks correct to me"
         response = flask.jsonify({"work": work, "message": message})
         return response, 201
     except:
         return "", 500
 
+
 if __name__ == '__main__':
+    #app.run(host="127.0.0.1", post=8080, debug=True)
     app.run()
