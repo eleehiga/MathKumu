@@ -14,3 +14,5 @@
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MathKumu.dll
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/ref/MathKumu.dll
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MathKumu.pdb
+/Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MathKumu.csprojAssemblyReference.cache
+/Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/Pages/HelpPage.xaml.g.cs

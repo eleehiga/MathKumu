@@ -4,15 +4,36 @@
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              xmlns:tt="clr-namespace:TouchTracking"
              x:Class="MathKumu.Pages.WorkPage">
-    <Label Text="{Binding EquationString}" />
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="btnHelp" Text="Help"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid BackgroundColor="White">
-            <skia:SKCanvasView x:Name="canvasView"
-                               PaintSurface="OnCanvasViewPaintSurface" />
-            <Grid.Effects>
-                <tt:TouchEffect Capture="True"
-                                TouchAction="OnTouchEffectAction" />
-            </Grid.Effects>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="{Binding EquationString}" />
+            <Entry Grid.Row="1" x:Name="entry" Placeholder="Put Answer Here" />
+            <Button Grid.Row="2" x:Name="btnCheck" Text="Check Answer"/>
+            <Label Grid.Row="3" Text="{Binding CheckMessageString}"/>
+            <Grid Grid.Row="4" BackgroundColor="White">
+                <skia:SKCanvasView x:Name="canvasView"
+                                   PaintSurface="OnCanvasViewPaintSurface"/>
+                <Grid.Effects>
+                    <tt:TouchEffect Capture="True"
+                                    TouchAction="OnTouchEffectAction" />
+                </Grid.Effects>
+            </Grid>
+            <Button Grid.Row="5" x:Name="btnAnalyze" Text="Analyze Work"/>
+            <Label Grid.Row="6" Text= "Work: "/>
+            <Label Grid.Row="7" Text="Results of Analysis: "/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

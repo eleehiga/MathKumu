@@ -23,7 +23,8 @@ namespace MathKumu.Pages
         };
 
         readonly MathKumuClient mathclient = new MathKumuClient();
-        private string equationString = "Error";
+        private string equationString = "Loading ..."; // Initially
+        private string checkString;
         private IList<int> numbers;
         private TopicsData topic;
 
@@ -35,6 +36,8 @@ namespace MathKumu.Pages
             this.topic = topic;
 
             Title = topic.MathType;
+            btnHelp.Clicked += (s, e) => Navigation.PushAsync(new HelpPage());
+            btnCheck.Clicked += (s, e) => this.OnCheckAnswer();
         }
 
         protected override void OnAppearing()
@@ -43,6 +46,7 @@ namespace MathKumu.Pages
             this.OnGetEquation();
         }
 
+        // Communicate with HTTP Client
         private async void OnGetEquation()
         {
             var equation = await mathclient.GetEquation(topic.MathType);
@@ -50,6 +54,16 @@ namespace MathKumu.Pages
             numbers = equation.numbers;
         }
 
+        private async void OnCheckAnswer()
+        {
+            CheckMessageString = await mathclient.CheckAnswer(numbers, int.Parse(entry.Text), Title);
+            if(CheckMessageString.Equals("Correct"))
+            {
+                this.OnGetEquation();
+            }
+        }
+
+        // Binding variables
         public string EquationString
         {
             get { return equationString; }
@@ -57,6 +71,16 @@ namespace MathKumu.Pages
             {
                 equationString = value;
                 OnPropertyChanged(nameof(EquationString));
+            }
+        }
+
+        public string CheckMessageString
+        {
+            get { return checkString; }
+            set
+            {
+                checkString = value;
+                OnPropertyChanged(nameof(CheckMessageString));
             }
         }
 
