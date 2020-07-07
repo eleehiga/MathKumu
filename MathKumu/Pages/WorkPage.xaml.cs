@@ -38,6 +38,7 @@ namespace MathKumu.Pages
             Title = topic.MathType;
             btnHelp.Clicked += (s, e) => Navigation.PushAsync(new HelpPage());
             btnCheck.Clicked += (s, e) => this.OnCheckAnswer();
+            btnAnalyze.Clicked += (s, e) => this.OnAnalyze();
         }
 
         protected override void OnAppearing()
@@ -61,6 +62,49 @@ namespace MathKumu.Pages
             {
                 this.OnGetEquation();
             }
+        }
+
+        /* OnAnalyze(object sender, EventArgs e)
+        {
+            var surface = SKSurface.Create(
+            //    (int)canvas.CanvasSize.Width,
+    //(int)canvasView.CanvasSize.Height,
+    //SKImageInfo.PlatformColorType, // SKImageInfo knows what colors to use on each platform
+    //SKAlphaType.Premul);
+    //        var canvas = surface.Canvas;
+    //        canvas.Clear();
+
+            var image = SKImage.Create(new SKImageInfo((int)canvasView.CanvasSize.width, (int)canvasView.CanvasSize.height));
+            foreach (SKPath path in completedPaths)
+                image.DrawImage(path, paint);
+
+            foreach (SKPath path in inProgressPaths.Values)
+                canvasView.DrawPath(path, paint);
+
+            canvasView.Flush();
+
+            var snap = surface.Snapshot();
+            var pngImage = snap.Encode();
+        }*/
+
+        private async void OnAnalyze()
+        {
+            var surface = SKSurface.Create(new SKImageInfo((int)canvasView.CanvasSize.Width,
+                                            (int)canvasView.CanvasSize.Height));
+            var canvas = surface.Canvas;
+            canvas.Clear();
+
+            foreach (SKPath path in completedPaths)
+                canvas.DrawPath(path, paint);
+
+            foreach (SKPath path in inProgressPaths.Values)
+                canvas.DrawPath(path, paint);
+
+            canvas.Flush();
+
+            var snap = surface.Snapshot();
+            var pngImage = snap.Encode();
+            AnalyerResults analyerResults = await mathclient.AnalyzeWork(pngImage);
         }
 
         // Binding variables

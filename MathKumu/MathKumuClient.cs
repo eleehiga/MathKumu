@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SkiaSharp;
 
 namespace MathKumu
 {
@@ -61,6 +62,13 @@ namespace MathKumu
             var result = await client.PostAsync(Url + "check", new StringContent(
                 JsonConvert.SerializeObject(Answer1), Encoding.UTF8, "application/json"));
             return await result.Content.ReadAsStringAsync();
+        }
+
+        public async Task<AnalyerResults> AnalyzeWork(SKData pngImage)
+        {
+            HttpClient client = await GetClient();
+            var result = await client.PostAsync(Url + "analyzer", new ByteArrayContent(pngImage.ToArray()));
+            return JsonConvert.DeserializeObject<AnalyerResults>(await result.Content.ReadAsStringAsync());
         }
     }
 }

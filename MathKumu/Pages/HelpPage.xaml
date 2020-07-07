@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MathKumu.Pages.HelpPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="- The drawing area is between the two lines"/>
             <Label Text="- Write draw numbers clearly and as large as possible"/>
             <Label Text="- Write numbers and math symbols in a grid like format"/>
             <Label Text="- Space out drawn symbols and numbers"/>
