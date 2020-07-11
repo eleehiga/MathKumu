@@ -7,39 +7,42 @@ import tensorflow as tf
 
 app = Flask(__name__)
 
-# variables
-first_number = 0
-second_number = 0
-
 @app.route('/')
 def index():
         #return flask.render_template("index.html")
         return 'Aloha Math Kumu!'
 
 # creates random addition equations with two numbers for now
-@app.route("/equation", methods=['GET'])
+@app.route("/equation", methods=['GET','POST'])
 def create_equation():
-    global first_number
-    global second_number
     first_number = np.random.randint(10, 100)
     second_number = np.random.randint(10, 100)
     try: 
-        return flask.jsonify(str(first_number) + " + " + str(second_number) + " ="), 201
+        type_json = flask.request.get_json()
+        if type_json['type'] == "Addition":
+            return flask.jsonify(equation = str(first_number) + " + " + str(second_number) + " =",
+                                 numbers = [first_number,second_number]), 201
+        return "Error", 201
     except:
-        return "", 500
+        return "Error", 500
 
 @app.route("/check", methods=['GET', 'POST'])
 def check_number(): 
-    global first_number
-    global second_number
     try:
-        message = "wrong"
-        answer_number = flask.request.get_data() 
-        if first_number + second_number == int(answer_number):
-            message = "correct"
+        message = "Error"
+        check_json = flask.request.get_json() 
+        type_equation = check_json['type']
+        first_number = check_json['numbers'][0]
+        second_number = check_json['numbers'][1]
+        answer_number = check_json['answer']
+        if type_equation == "Addition":
+            if first_number + second_number == int(answer_number):
+                message = "Correct"
+            else:
+                message = "Wrong"
         return str(message), 201
     except:
-        return "", 500
+        return "Error", 500
 
 
 # analyzes the picture of the person's work
@@ -127,9 +130,15 @@ def analyze():
             return item[1]
         symbols.sort(key = getYFromChar)
         operators = list()
-        operators.append(symbols[0])
         lines  = list()
-        lines.append(symbols[1])
+        try:
+            operators.append(symbols[0])
+            lines.append(symbols[1])
+        except:
+            message = "Mistake: operator and/or line missing"
+            work = [["Error", "Error"], ["Error","Error"]]
+            response = flask.jsonify({"work": work, "message": message})
+            return response, 201
         # see if intervals line up with each other
         row = np.zeros(len(characters), dtype=int)
         col = np.zeros(len(characters), dtype=int)
@@ -203,7 +212,7 @@ def analyze():
                 elif character[6] == c_num and not(character[4] in ['plus', '-', 'times']) and character[5] < lines[0][5]:
                     sum_check = int(character[4])
                     if sum_col % 10 != sum_check and have_nums_to_use:
-                        message = "Error when adding in column " + str(c_num)
+                        message = "Mistake: When adding in column " + str(c_num)
                         correct = False
                     have_nums_to_use = False
                     prev_sum = sum_col
@@ -211,7 +220,7 @@ def analyze():
                 elif not(character[4] in ['plus', '-', 'times']):
                     c_num = character[6]
                     if character[5] < lines[0][5] and sum_col == 0 and int(prev_sum / 10) != int(character[4]):
-                        message = "Error in leftmost column"
+                        message = "Mistake: In leftmost column"
                         correct = False
                     sum_col += int(character[4])
         if correct:
