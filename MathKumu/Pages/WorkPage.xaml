@@ -8,38 +8,47 @@
         <ToolbarItem x:Name="btnHelp" Text="Help"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Text="{Binding EquationString}" />
-                <Entry Grid.Row="1" x:Name="entry" Placeholder="Put Answer Here" />
-                <Button Grid.Row="2" x:Name="btnCheck" Text="Check Answer"/>
-                <Label Grid.Row="3" Text="{Binding CheckMessageString}"/>
-                <BoxView Grid.Row="4" Color="Black" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
-                <Grid Grid.Row="5" BackgroundColor="White">
-                    <skia:SKCanvasView x:Name="canvasView"
-                                       PaintSurface="OnCanvasViewPaintSurface"/>
-                    <Grid.Effects>
-                        <tt:TouchEffect Capture="True"
-                                        TouchAction="OnTouchEffectAction" />
-                    </Grid.Effects>
-                </Grid>
-                <BoxView Grid.Row="6" Color="Black" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
-                <Button Grid.Row="7" x:Name="btnAnalyze" Text="Analyze Work"/>
-                <Label Grid.Row="8" Text= "Work: "/>
-                <Label Grid.Row="9" Text="Results of Analysis: "/>
+       <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="350"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="{Binding EquationString}" />
+            <Entry Grid.Row="1" x:Name="entry" Placeholder="Put Answer Here" />
+            <Button Grid.Row="2" x:Name="btnCheck" Text="Check Answer"/>
+            <Label Grid.Row="3" Text="{Binding CheckMessageString}"/>
+            <BoxView Grid.Row="4" Color="Black" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+            <Grid Grid.Row="5" BackgroundColor="White">
+                <skia:SKCanvasView x:Name="canvasView"
+                                   PaintSurface="OnCanvasViewPaintSurface"
+                                   BackgroundColor="White"/>
+                <Grid.Effects>
+                    <tt:TouchEffect Capture="True"
+                                    TouchAction="OnTouchEffectAction" />
+                </Grid.Effects>
             </Grid>
-        </ScrollView>
+            <BoxView Grid.Row="6" Color="Black" HeightRequest="1" HorizontalOptions="FillAndExpand"/>
+            <Grid Grid.Row="7">
+                <Button Grid.Column="0" x:Name="btnClear" Text="Clear"/>
+                <Button Grid.Column="1" x:Name="btnAnalyze" Text="Analyze"/>
+            </Grid>
+            <ScrollView Grid.Row="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="{Binding ResultString}"/>
+                    <Label Grid.Row="1" Text= "{Binding WorkString}"/>
+                </Grid>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

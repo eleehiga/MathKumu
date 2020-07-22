@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using RestSharp;
 using SkiaSharp;
 
 namespace MathKumu
@@ -28,8 +30,9 @@ namespace MathKumu
 
     public class AnalyerResults
     {
-        public IList<string> work { get; set; }
         public string message { get; set; }
+        //public IList<string> work { get; set; }
+        public IList<IList<string>> work { get; set; }
     }
 
     public class MathKumuClient
@@ -64,11 +67,35 @@ namespace MathKumu
             return await result.Content.ReadAsStringAsync();
         }
 
-        public async Task<AnalyerResults> AnalyzeWork(SKData pngImage)
+        /*public async Task<AnalyerResults> AnalyzeWork(SKData pngImage)
         {
             HttpClient client = await GetClient();
             var result = await client.PostAsync(Url + "analyzer", new ByteArrayContent(pngImage.ToArray()));
+            //var result = await client.PostAsync(Url + "analyzer", new StringContent(Encoding.UTF8.GetString(pngImage.ToArray()), Encoding.UTF8));
             return JsonConvert.DeserializeObject<AnalyerResults>(await result.Content.ReadAsStringAsync());
+        }*/
+
+        public AnalyerResults AnalyzeWork(SKData pngImage)
+        {
+            var client = new RestClient(Url + "analyzer");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Content-Type", "image/png");
+            //request.AddParameter("image/png", Convert.ToBase64String(pngImage.ToArray()), ParameterType.RequestBody);
+            //request.AddParameter("image/png", Encoding.UTF32.GetString(pngImage.ToArray()), ParameterType.RequestBody);
+            //request.AddParameter("image/png", Convert.ToString(pngImage.ToArray(), 2), ParameterType.RequestBody);
+            request.AddParameter("image/png", pngImage.ToArray(), ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            System.Console.WriteLine(response.StatusCode);
+            return JsonConvert.DeserializeObject<AnalyerResults>(response.Content);
+        }
+
+        public static string ByteArrayToString(byte[] ba)
+        {
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            foreach (byte b in ba)
+                hex.AppendFormat("{0:x2}", b);
+            return hex.ToString();
         }
     }
 }

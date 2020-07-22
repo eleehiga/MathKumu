@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[12.0.3, )"
             },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.11.4, )"
+            },
             "SkiaSharp.Views.Forms": {
               "target": "Package",
               "version": "[1.68.3, )"
@@ -56,7 +60,7 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.7.0.968, )"
+              "version": "[4.7.0.1080, )"
             }
           },
           "imports": [

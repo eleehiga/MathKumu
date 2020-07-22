@@ -2,6 +2,24 @@
   "version": 3,
   "targets": {
     "Xamarin.iOS,Version=v1.0": {
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "RestSharp/106.11.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "SkiaSharp/1.68.3": {
         "type": "package",
         "compile": {
@@ -72,7 +90,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.7.0.968": {
+      "Xamarin.Forms/4.7.0.1080": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -148,8 +166,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -197,9 +215,11 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Newtonsoft.Json": "12.0.3",
+          "RestSharp": "106.11.4",
           "SkiaSharp.Views.Forms": "1.68.3",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.7.0.968"
+          "Xamarin.Forms": "4.7.0.1080"
         },
         "compile": {
           "bin/placeholder/MathKumu.dll": {}
@@ -210,6 +230,24 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win": {
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "RestSharp/106.11.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "SkiaSharp/1.68.3": {
         "type": "package",
         "compile": {
@@ -258,7 +296,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.7.0.968": {
+      "Xamarin.Forms/4.7.0.1080": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -334,8 +372,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -383,9 +421,11 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Newtonsoft.Json": "12.0.3",
+          "RestSharp": "106.11.4",
           "SkiaSharp.Views.Forms": "1.68.3",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.7.0.968"
+          "Xamarin.Forms": "4.7.0.1080"
         },
         "compile": {
           "bin/placeholder/MathKumu.dll": {}
@@ -396,6 +436,24 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x64": {
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "RestSharp/106.11.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "SkiaSharp/1.68.3": {
         "type": "package",
         "compile": {
@@ -447,7 +505,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.7.0.968": {
+      "Xamarin.Forms/4.7.0.1080": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -523,8 +581,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -572,9 +630,11 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Newtonsoft.Json": "12.0.3",
+          "RestSharp": "106.11.4",
           "SkiaSharp.Views.Forms": "1.68.3",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.7.0.968"
+          "Xamarin.Forms": "4.7.0.1080"
         },
         "compile": {
           "bin/placeholder/MathKumu.dll": {}
@@ -585,6 +645,24 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x86": {
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "RestSharp/106.11.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "SkiaSharp/1.68.3": {
         "type": "package",
         "compile": {
@@ -636,7 +714,7 @@
           "lib/xamarinios10/Xamarin.Essentials.dll": {}
         }
       },
-      "Xamarin.Forms/4.7.0.968": {
+      "Xamarin.Forms/4.7.0.1080": {
         "type": "package",
         "compile": {
           "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
@@ -712,8 +790,8 @@
           "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pl"
           },
-          "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll": {
-            "locale": "pt-br"
+          "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll": {
+            "locale": "pt-BR"
           },
           "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll": {
             "locale": "pt"
@@ -761,9 +839,11 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "Newtonsoft.Json": "12.0.3",
+          "RestSharp": "106.11.4",
           "SkiaSharp.Views.Forms": "1.68.3",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.7.0.968"
+          "Xamarin.Forms": "4.7.0.1080"
         },
         "compile": {
           "bin/placeholder/MathKumu.dll": {}
@@ -775,6 +855,53 @@
     }
   },
   "libraries": {
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "RestSharp/106.11.4": {
+      "sha512": "vx35q52cM3UQNOiN3UqSQ9U7I5UeoyzVmjsWKQxOxn6FVu+n01+SNwhxc/jvf92WPBmmwzTV4VYTeTg4KviJdA==",
+      "type": "package",
+      "path": "restsharp/106.11.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/RestSharp.dll",
+        "lib/net452/RestSharp.xml",
+        "lib/netstandard2.0/RestSharp.dll",
+        "lib/netstandard2.0/RestSharp.xml",
+        "restsharp.106.11.4.nupkg.sha512",
+        "restsharp.nuspec",
+        "restsharp.png"
+      ]
+    },
     "SkiaSharp/1.68.3": {
       "sha512": "78YvBVmR52PoLPf0aTZMWOZVrMxlXlgPOgU3vGk7W50wrYHi3lSd886ccYd7MkJmm+oInP8shf0vSy1321ERCQ==",
       "type": "package",
@@ -943,10 +1070,10 @@
         "xamarin.essentials.nuspec"
       ]
     },
-    "Xamarin.Forms/4.7.0.968": {
-      "sha512": "VvHI/VXyDZcCLYXywh9A8gVtldD8XCLR8hujZVdlKGh87HIXAUW0b+uLFsvyMB8COwNce0w56ycgD/tXtLgFRA==",
+    "Xamarin.Forms/4.7.0.1080": {
+      "sha512": "YN04zJoVBBKdhYnIK1lwZJTGCFrHJ+bUfqQK4aKy8oDjthh5JlNcjetUS+eV+JK9XcmYpS2SxpmDxFFXxSfONQ==",
       "type": "package",
-      "path": "xamarin.forms/4.7.0.968",
+      "path": "xamarin.forms/4.7.0.1080",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1030,8 +1157,8 @@
         "lib/MonoAndroid10.0/ja/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid10.0/ko/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid10.0/ko/Xamarin.Forms.Xaml.xml",
-        "lib/MonoAndroid10.0/pt-br/Xamarin.Forms.Core.xml",
-        "lib/MonoAndroid10.0/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/MonoAndroid10.0/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/MonoAndroid10.0/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid10.0/ru/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid10.0/ru/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid10.0/zh-Hans/Xamarin.Forms.Core.xml",
@@ -1063,8 +1190,8 @@
         "lib/MonoAndroid90/ja/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid90/ko/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid90/ko/Xamarin.Forms.Xaml.xml",
-        "lib/MonoAndroid90/pt-br/Xamarin.Forms.Core.xml",
-        "lib/MonoAndroid90/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/MonoAndroid90/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/MonoAndroid90/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid90/ru/Xamarin.Forms.Core.xml",
         "lib/MonoAndroid90/ru/Xamarin.Forms.Xaml.xml",
         "lib/MonoAndroid90/zh-Hans/Xamarin.Forms.Core.xml",
@@ -1118,9 +1245,9 @@
         "lib/Xamarin.iOS10/nb/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/nl/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/pl/Xamarin.Forms.Platform.iOS.resources.dll",
-        "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Core.xml",
-        "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Platform.iOS.resources.dll",
-        "lib/Xamarin.iOS10/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Platform.iOS.resources.dll",
+        "lib/Xamarin.iOS10/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/Xamarin.iOS10/pt/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/ro/Xamarin.Forms.Platform.iOS.resources.dll",
         "lib/Xamarin.iOS10/ru/Xamarin.Forms.Core.xml",
@@ -1169,8 +1296,8 @@
         "lib/netstandard2.0/ja/Xamarin.Forms.Xaml.xml",
         "lib/netstandard2.0/ko/Xamarin.Forms.Core.xml",
         "lib/netstandard2.0/ko/Xamarin.Forms.Xaml.xml",
-        "lib/netstandard2.0/pt-br/Xamarin.Forms.Core.xml",
-        "lib/netstandard2.0/pt-br/Xamarin.Forms.Xaml.xml",
+        "lib/netstandard2.0/pt-BR/Xamarin.Forms.Core.xml",
+        "lib/netstandard2.0/pt-BR/Xamarin.Forms.Xaml.xml",
         "lib/netstandard2.0/ru/Xamarin.Forms.Core.xml",
         "lib/netstandard2.0/ru/Xamarin.Forms.Xaml.xml",
         "lib/netstandard2.0/zh-Hans/Xamarin.Forms.Core.xml",
@@ -1253,7 +1380,7 @@
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.dll",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.pdb",
         "lib/uap10.0.16299/Xamarin.Forms.Xaml.xml",
-        "xamarin.forms.4.7.0.968.nupkg.sha512",
+        "xamarin.forms.4.7.0.1080.nupkg.sha512",
         "xamarin.forms.nuspec"
       ]
     },
@@ -1267,7 +1394,7 @@
     "Xamarin.iOS,Version=v1.0": [
       "MathKumu >= 1.0.0",
       "Xamarin.Essentials >= 1.5.3.2",
-      "Xamarin.Forms >= 4.7.0.968"
+      "Xamarin.Forms >= 4.7.0.1080"
     ]
   },
   "packageFolders": {
@@ -1311,7 +1438,7 @@
           },
           "Xamarin.Forms": {
             "target": "Package",
-            "version": "[4.7.0.968, )"
+            "version": "[4.7.0.1080, )"
           }
         }
       }

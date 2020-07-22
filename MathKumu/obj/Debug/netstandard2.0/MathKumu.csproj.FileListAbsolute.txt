@@ -6,6 +6,7 @@
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MainPage.xaml.g.cs
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/Pages/AboutPage.xaml.g.cs
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/Pages/ArithmeticPage.xaml.g.cs
+/Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/Pages/HelpPage.xaml.g.cs
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/Pages/WorkPage.xaml.g.cs
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MathKumu.AssemblyInfoInputs.cache
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MathKumu.AssemblyInfo.cs
@@ -15,4 +16,3 @@
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/ref/MathKumu.dll
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MathKumu.pdb
 /Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/MathKumu.csprojAssemblyReference.cache
-/Users/sheryl/Projects/MathKumu/MathKumu/obj/Debug/netstandard2.0/Pages/HelpPage.xaml.g.cs

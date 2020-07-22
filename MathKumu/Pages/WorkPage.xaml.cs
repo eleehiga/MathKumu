@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using MathKumu.Services;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using TouchTracking;
@@ -17,14 +19,17 @@ namespace MathKumu.Pages
         {
             Style = SKPaintStyle.Stroke,
             Color = SKColors.Black,
-            StrokeWidth = 10,
+            //StrokeWidth = 10,
+            StrokeWidth = 5,
             StrokeCap = SKStrokeCap.Round,
             StrokeJoin = SKStrokeJoin.Round
         };
 
         readonly MathKumuClient mathclient = new MathKumuClient();
         private string equationString = "Loading ..."; // Initially
-        private string checkString;
+        private string checkString = " ";
+        private string workString = " ";
+        private string resultString = " ";
         private IList<int> numbers;
         private TopicsData topic;
 
@@ -39,60 +44,17 @@ namespace MathKumu.Pages
             btnHelp.Clicked += (s, e) => Navigation.PushAsync(new HelpPage());
             btnCheck.Clicked += (s, e) => this.OnCheckAnswer();
             btnAnalyze.Clicked += (s, e) => this.OnAnalyze();
+            //btnAnalyze.Clicked += (s, e) => this.SavePhoto();
+            btnClear.Clicked += (s, e) => this.OnClear();
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            this.OnGetEquation();
-        }
-
-        // Communicate with HTTP Client
-        private async void OnGetEquation()
-        {
-            var equation = await mathclient.GetEquation(topic.MathType);
-            EquationString = equation.equation;
-            numbers = equation.numbers;
-        }
-
-        private async void OnCheckAnswer()
-        {
-            CheckMessageString = await mathclient.CheckAnswer(numbers, int.Parse(entry.Text), Title);
-            if(CheckMessageString.Equals("Correct"))
-            {
-                this.OnGetEquation();
-            }
-        }
-
-        /* OnAnalyze(object sender, EventArgs e)
-        {
-            var surface = SKSurface.Create(
-            //    (int)canvas.CanvasSize.Width,
-    //(int)canvasView.CanvasSize.Height,
-    //SKImageInfo.PlatformColorType, // SKImageInfo knows what colors to use on each platform
-    //SKAlphaType.Premul);
-    //        var canvas = surface.Canvas;
-    //        canvas.Clear();
-
-            var image = SKImage.Create(new SKImageInfo((int)canvasView.CanvasSize.width, (int)canvasView.CanvasSize.height));
-            foreach (SKPath path in completedPaths)
-                image.DrawImage(path, paint);
-
-            foreach (SKPath path in inProgressPaths.Values)
-                canvasView.DrawPath(path, paint);
-
-            canvasView.Flush();
-
-            var snap = surface.Snapshot();
-            var pngImage = snap.Encode();
-        }*/
-
-        private async void OnAnalyze()
+        // Remove This Later
+        private void SavePhoto()
         {
             var surface = SKSurface.Create(new SKImageInfo((int)canvasView.CanvasSize.Width,
                                             (int)canvasView.CanvasSize.Height));
             var canvas = surface.Canvas;
-            canvas.Clear();
+            //canvas.Clear();
+            canvas.Clear(SKColors.White);
 
             foreach (SKPath path in completedPaths)
                 canvas.DrawPath(path, paint);
@@ -103,8 +65,107 @@ namespace MathKumu.Pages
             canvas.Flush();
 
             var snap = surface.Snapshot();
-            var pngImage = snap.Encode();
-            AnalyerResults analyerResults = await mathclient.AnalyzeWork(pngImage);
+            var pngImage = snap.Encode(SKEncodedImageFormat.Png, 100);
+            Stream stream = new MemoryStream(pngImage.ToArray());
+            DependencyService.Get<ISavePhotosToAlbum>().SavePhotosWithStream("test.jpg", stream);
+        }
+        //
+        
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.OnGetEquation();
+        }
+
+        private void OnClear()
+        {
+            inProgressPaths.Clear();
+            completedPaths.Clear();
+            canvasView.InvalidateSurface(); // Redraws canvasView 
+        }
+
+        // Communicate with HTTP Client
+        private async void OnGetEquation()
+        {
+            try
+            {
+                var equation = await mathclient.GetEquation(topic.MathType);
+                EquationString = equation.equation;
+                numbers = equation.numbers;
+            }
+            catch
+            {
+                EquationString = "Error";
+            }
+            
+        }
+
+
+        private async void OnCheckAnswer()
+        {
+            try
+            {
+                CheckMessageString = await mathclient.CheckAnswer(numbers, int.Parse(entry.Text), Title);
+                if (CheckMessageString.Equals("Correct"))
+                {
+                    this.OnGetEquation();
+                    entry.Text = "";
+                }
+            }
+            catch { return; }
+        }
+
+        private async void OnAnalyze()
+        {
+            ResultString = "Loading...";
+            WorkString = "Loading...";
+
+            var surface = SKSurface.Create(new SKImageInfo((int)canvasView.CanvasSize.Width,
+                                            (int)canvasView.CanvasSize.Height));
+            var canvas = surface.Canvas;
+            canvas.Clear(SKColors.White);
+
+            foreach (SKPath path in completedPaths)
+                canvas.DrawPath(path, paint);
+
+            foreach (SKPath path in inProgressPaths.Values)
+                canvas.DrawPath(path, paint);
+
+            canvas.Flush();
+
+            var snap = surface.Snapshot();
+            var pngImage = snap.Encode(SKEncodedImageFormat.Png, 100);
+            try
+            {
+                AnalyerResults analyerResults = mathclient.AnalyzeWork(pngImage);
+                ResultString = analyerResults.message;
+
+                //Displaying the work
+                //WorkString = "  \n\n\n";
+                WorkString = " \t";
+                var rowSize = analyerResults.work.Count;
+                var colSize = analyerResults.work[0].Count;
+                for(int i = 0; i < colSize; i++)
+                {
+                    WorkString = WorkString + i + "\t";
+                }
+                WorkString = WorkString + "\n";
+                for (int i = 0; i < rowSize; i++)
+                {
+                    WorkString = WorkString + "\n" + i + "\t";
+                    foreach(string work in analyerResults.work[i])
+                    {
+                        WorkString = WorkString + work + "\t";
+                    }
+                }
+                
+
+            }
+            catch
+            {
+                ResultString = "Error...";
+                WorkString = "Error...";
+            } 
         }
 
         // Binding variables
@@ -125,6 +186,26 @@ namespace MathKumu.Pages
             {
                 checkString = value;
                 OnPropertyChanged(nameof(CheckMessageString));
+            }
+        }
+
+        public string WorkString
+        {
+            get { return workString; }
+            set
+            {
+                workString = value;
+                OnPropertyChanged(nameof(WorkString));
+            }
+        }
+
+        public string ResultString
+        {
+            get { return resultString; }
+            set
+            {
+                resultString = value;
+                OnPropertyChanged(nameof(ResultString));
             }
         }
 
@@ -172,12 +253,6 @@ namespace MathKumu.Pages
                     break;
             }
         }
-
-        //SKPoint ConvertToPixel(TouchTrackingPoint location)
-        //{
-        //    return new SKPoint((float)(canvasView.CanvasSize.Width * location.X / canvasView.Width),
-        //                       (float)(canvasView.CanvasSize.Height * location.Y / canvasView.Height));
-        //}
 
         SKPoint ConvertToPixel(Point pt)
         {

@@ -1,14 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "ZJC0x26+SO6p6u/FJCZiN9sI3H041udJtUZpXkzZGRJB/6wwvUwQPHES6BpUx+S47pw7j0Y2rNhW2UEtRTdcvg==",
+  "dgSpecHash": "M0JvT0G28Jyd8KnIYWPSCaZG1xmKoCqq+hIBu8CUui7iWzHI2FBh2EK8yXPTlEGqd7JtLiPR1aGU3hwQ99N7tg==",
   "success": true,
   "projectFilePath": "/Users/sheryl/Projects/MathKumu/MathKumu.iOS/MathKumu.iOS.csproj",
   "expectedPackageFiles": [
+    "/Users/sheryl/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
+    "/Users/sheryl/.nuget/packages/restsharp/106.11.4/restsharp.106.11.4.nupkg.sha512",
     "/Users/sheryl/.nuget/packages/skiasharp/1.68.3/skiasharp.1.68.3.nupkg.sha512",
     "/Users/sheryl/.nuget/packages/skiasharp.views/1.68.3/skiasharp.views.1.68.3.nupkg.sha512",
     "/Users/sheryl/.nuget/packages/skiasharp.views.forms/1.68.3/skiasharp.views.forms.1.68.3.nupkg.sha512",
     "/Users/sheryl/.nuget/packages/xamarin.essentials/1.5.3.2/xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "/Users/sheryl/.nuget/packages/xamarin.forms/4.7.0.968/xamarin.forms.4.7.0.968.nupkg.sha512"
+    "/Users/sheryl/.nuget/packages/xamarin.forms/4.7.0.1080/xamarin.forms.4.7.0.1080.nupkg.sha512"
   ],
   "logs": []
 }
