@@ -1,5 +1,5 @@
 # MathKumu
-Math Tutoring app.
+IOS app that will tutor people in math. This is achieved by giving the person problems to work on in a given space on the app and then allowing the person to submit their work to be reviewed automatically. This review will include checking if their solving process, for example in the picture below solving an addition problem, is correct or not and where they went wrong in that process. Finally, this is all possible as a lot of math problems are solved using mechanical steps and therefore the "mechanical" aspect is the reason why these steps are able to be checked by a program. 
 
 Modules in this repository:
 - main.py, python file used to run the backend
